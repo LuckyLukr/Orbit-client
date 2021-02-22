@@ -14,7 +14,7 @@ function App() {
 
   function fetchAstronauts() {
       return new Promise( resolve => {
-          axios.get('http://localhost:5000/')
+          axios.get('https://orbit-server.herokuapp.com/')
             .then( res => {
               resolve(res.data);
             })
@@ -30,12 +30,12 @@ function App() {
   function addNaut(firstName, lastName, birth, superpower) {
       const newNaut = {id: astronauts.length, firstName, lastName, birth, superpower };
       console.log(newNaut.id);
-      axios.post('http://localhost:5000/', newNaut);
+      axios.post('https://orbit-server.herokuapp.com/', newNaut);
       setAstronauts([...astronauts, newNaut]);
   }
 
   function deleteNaut( id ) {
-      axios.delete('http://localhost:5000/' + id)
+      axios.delete('https://orbit-server.herokuapp.com/' + id)
       const newNauts = [...astronauts];
       const index = newNauts.findIndex(e => e.id === id);
       newNauts.splice(index, 1);
