@@ -4,7 +4,7 @@ import {
     TextField,
     Button,
     Grid,
-  } from '@material-ui/core/';
+} from '@material-ui/core/';
 
 const useStyles = makeStyles(() => ({
     form: {
@@ -15,7 +15,7 @@ const useStyles = makeStyles(() => ({
     },
   }));
 
-function AddingForm({ onAdd, onExpandAdd }) {
+function AddingForm({ onAdd, onExpandRegisterForm }) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [birth, setBirth] = useState('');
@@ -41,9 +41,8 @@ function AddingForm({ onAdd, onExpandAdd }) {
 
   function addAstronaut(e) {
       e.preventDefault();
-      const id = e._id;
-      onAdd(firstName, lastName, birth, superpower, id);
-      onExpandAdd();
+      onAdd(firstName, lastName, birth, superpower);
+      onExpandRegisterForm();
       setFirstName('');
       setLastName('');
       setBirth('');
@@ -55,6 +54,7 @@ function AddingForm({ onAdd, onExpandAdd }) {
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
+                inputProps={{ "data-testid": "fname-input" }}
                 name="firstName"
                 variant="outlined"
                 required
@@ -67,6 +67,7 @@ function AddingForm({ onAdd, onExpandAdd }) {
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
+                inputProps={{ "data-testid": "lname-input" }}
                 variant="outlined"
                 required
                 fullWidth
@@ -80,6 +81,7 @@ function AddingForm({ onAdd, onExpandAdd }) {
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
+                inputProps={{ "data-testid": "birth-input" }}
                 type="date"
                 variant="outlined"
                 required
@@ -93,6 +95,7 @@ function AddingForm({ onAdd, onExpandAdd }) {
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
+                inputProps={{ "data-testid": "superpower-input" }}
                 id="superpower"
                 name="superpower"
                 label="Superpower"
@@ -109,7 +112,7 @@ function AddingForm({ onAdd, onExpandAdd }) {
                 variant="contained"
                 color="primary"
               >
-                Add
+                Register
               </Button>
             </Grid>
           </Grid>

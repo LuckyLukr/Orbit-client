@@ -37,7 +37,8 @@ function Footer() {
                         Websites created by <a  className={classes.link} 
                                                 target='_blank' 
                                                 href='https://www.linkedin.com/in/luk%C3%A1%C5%A1-klime%C5%A1-385b07204/'
-                                            >Lukáš Klimeš
+                                            >
+                                                Lukáš Klimeš
                                             </a>
                     </Typography>
                  </Grid>

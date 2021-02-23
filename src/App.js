@@ -1,16 +1,17 @@
 import React, { useState, useEffect} from 'react';
 import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 import Header from './Components/HeaderComponent';
 import Register from './Components/RegisterComponent';
 import Footer from './Components/FooterComponent';
 
 function App() {
   const [ astronauts, setAstronauts ] = useState([]);
-  const [ addingData, setAddtingData ] = useState(false);
+  const [ showRegisterForm, setShowRegisterForm ] = useState(false);
   
   useEffect(()=> {
     loadAstronauts();
-  },[astronauts]);
+  },[]);
 
   function fetchAstronauts() {
       return new Promise( resolve => {
@@ -28,7 +29,7 @@ function App() {
   }
 
   function addNaut(firstName, lastName, birth, superpower) {
-      const newNaut = {id: astronauts.length, firstName, lastName, birth, superpower };
+      const newNaut = {id: uuidv4(), firstName, lastName, birth, superpower };
       console.log(newNaut.id);
       axios.post('https://orbit-server.herokuapp.com/', newNaut);
       setAstronauts([...astronauts, newNaut]);
@@ -42,9 +43,8 @@ function App() {
       setAstronauts(newNauts);
   }
 
-  function expandAdd() {
-    const expand = addingData ? false : true;
-    setAddtingData(expand)
+  function expandRegisterForm() {
+    setShowRegisterForm(!showRegisterForm)
   }
 
   return (
@@ -52,10 +52,10 @@ function App() {
       <Header />
       <Register 
           astronauts={astronauts}
-          onExpandAdd={expandAdd}
+          onExpandRegisterForm={expandRegisterForm}
           onAdd={addNaut}
           onDelete={deleteNaut}
-          addingData={addingData}
+          showRegisterForm={showRegisterForm}
       />
       <Footer />
     </div>

@@ -7,14 +7,12 @@ import {
     Fab,
     Tooltip,
     IconButton,
-    Button
 } from '@material-ui/core';
-import { DataGrid } from '@material-ui/data-grid';
 import useScrollPosition from '@react-hook/window-scroll';
 import AddingForm from './AddingFormComponent';
 import AddIcon from '@material-ui/icons/Add';
-import DeleteIcon from '@material-ui/icons/Delete';
 import CloseIcon from '@material-ui/icons/Close';
+import Table from './TableComponent';
 
 const useStyles = makeStyles(()=>({
     root: {
@@ -41,73 +39,41 @@ const useStyles = makeStyles(()=>({
     },
 }))
 
-function Register({ astronauts, onAdd, onExpandAdd, onDelete, addingData }) {
+function Register({ astronauts, onAdd, onExpandRegisterForm, onDelete, showRegisterForm }) {
     const classes = useStyles();
     const scrollY = useScrollPosition(60 /*fps*/);
-    const columns = [
-        { field: 'firstName', headerName: 'First name', width: 130 },
-        { field: 'lastName', headerName: 'Last name', width: 130 },
-        { field: 'birth', headerName: 'Birth', width: 130 },
-        { field: 'superpower', headerName: 'Superpower', width: 300,  },
-        {  
-            field: ' ', 
-            headerName: null,
-            renderCell: (params) => (
-                <Tooltip title='Delete' >
-                    <IconButton onClick={()=> onDelete(params.row.id)} color='primary' > 
-                        <DeleteIcon />
-                    </IconButton>
-                </Tooltip>
-            )
-        },
-    ];
-    
-    const nautArr = astronauts.map( e => { 
-        return({
-            id: e._id || e.id,
-            key: e._id,
-            firstName: e.firstName,
-            lastName: e.lastName,
-            birth: e.birth,
-            superpower: e.superpower
-        })
-     });
-
 
     return(
         <Grid container justify='center'>
             <Card elevation={10} className={scrollY === 0 ? classes.root : classes.rootScroll}>
-
                 <Typography align='center' variant='h4' color='textSecondary' >
                     REGISTER OF ASTRONAUTS
                 </Typography>
+                <Table 
+                    astronauts={astronauts} 
+                    onDelete={onDelete} 
+                />
 
-                <div>
-                    <DataGrid 
-                        rows={nautArr} 
-                        columns={columns}
-                        pageSize={7}
-                        autoHeight
-                        hideFooterSelectedRowCount
-                        showCellRightBorder
-                        />
-                </div>
-
-                {addingData 
+                {showRegisterForm 
                 ?
                 <Grid container justify='center'>               
                     <Card elevation={0} className={classes.addform}>
                         <Grid container justify='flex-end'>
-                            <IconButton onClick={()=> onExpandAdd()} variant='text' color='primary'>
-                                <CloseIcon />
-                            </IconButton>
+                            <Tooltip title='Close' >
+                                <IconButton onClick={()=> onExpandRegisterForm()} variant='text' color='primary'>
+                                    <CloseIcon />
+                                </IconButton>
+                            </Tooltip>
                         </Grid>
-                        <AddingForm onExpandAdd={onExpandAdd} onAdd={onAdd} />
+                        <AddingForm 
+                            onExpandRegisterForm={onExpandRegisterForm} 
+                            onAdd={onAdd} 
+                        />
                     </Card>
                 </Grid>  
                 :
                 <Tooltip title='Add' >
-                    <Fab onClick={()=> onExpandAdd()} style={{marginTop: '1%'}} color="primary" aria-label="add">
+                    <Fab onClick={()=> onExpandRegisterForm()} style={{marginTop: '1%'}} color="primary" aria-label="add">
                         <AddIcon />
                     </Fab>
                 </Tooltip>
