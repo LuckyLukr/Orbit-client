@@ -55,28 +55,28 @@ function Register({ astronauts, onAdd, onExpandRegisterForm, onDelete, showRegis
                 />
 
                 {showRegisterForm 
-                ?
-                <Grid container justify='center'>               
-                    <Card elevation={0} className={classes.addform}>
-                        <Grid container justify='flex-end'>
-                            <Tooltip title='Close' >
-                                <IconButton onClick={()=> onExpandRegisterForm()} variant='text' color='primary'>
-                                    <CloseIcon />
-                                </IconButton>
-                            </Tooltip>
-                        </Grid>
-                        <AddingForm 
-                            onExpandRegisterForm={onExpandRegisterForm} 
-                            onAdd={onAdd} 
-                        />
-                    </Card>
-                </Grid>  
-                :
-                <Tooltip title='Add' >
-                    <Fab onClick={()=> onExpandRegisterForm()} style={{marginTop: '1%'}} color="primary" aria-label="add">
-                        <AddIcon />
-                    </Fab>
-                </Tooltip>
+                    ?
+                    <Grid container justify='center'>               
+                        <Card elevation={0} className={classes.addform}>
+                            <Grid container justify='flex-end'>
+                                <Tooltip title='Close' >
+                                    <IconButton onClick={()=> onExpandRegisterForm()} variant='text' color='primary'>
+                                        <CloseIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            </Grid>
+                            <AddingForm 
+                                onExpandRegisterForm={onExpandRegisterForm} 
+                                onAdd={onAdd} 
+                            />
+                        </Card>
+                    </Grid>  
+                    :
+                    <Tooltip title='Add' >
+                        <Fab onClick={()=> onExpandRegisterForm()} style={{marginTop: '1%'}} color="primary" aria-label="add">
+                            <AddIcon />
+                        </Fab>
+                    </Tooltip>
                 }
             </Card>
         </Grid>

@@ -24,23 +24,22 @@ function App() {
   }
 
   async function loadAstronauts() {
-      const naut = await fetchAstronauts();
-      setAstronauts(naut);
+      const nauts = await fetchAstronauts();
+      setAstronauts(nauts);
   }
 
-  function addNaut(firstName, lastName, birth, superpower) {
+  function addAstronaut(firstName, lastName, birth, superpower) {
       const newNaut = {id: uuidv4(), firstName, lastName, birth, superpower };
-      console.log(newNaut.id);
-      axios.post('https://orbit-server.herokuapp.com/', newNaut);
+      axios.post('https://orbit-server.herokuapp.com/', newNaut).catch(err => console.log(err));
       setAstronauts([...astronauts, newNaut]);
   }
 
-  function deleteNaut( id ) {
-      axios.delete('https://orbit-server.herokuapp.com/' + id)
-      const newNauts = [...astronauts];
-      const index = newNauts.findIndex(e => e.id === id);
-      newNauts.splice(index, 1);
-      setAstronauts(newNauts);
+  function deleteAstronaut( id ) {
+      axios.delete('https://orbit-server.herokuapp.com/' + id).catch(err => console.log(err));
+      const nauts = [...astronauts];
+      const index = nauts.findIndex(e => e.id === id);
+      nauts.splice(index, 1);
+      setAstronauts(nauts);
   }
 
   function expandRegisterForm() {
@@ -53,8 +52,8 @@ function App() {
       <Register 
           astronauts={astronauts}
           onExpandRegisterForm={expandRegisterForm}
-          onAdd={addNaut}
-          onDelete={deleteNaut}
+          onAdd={addAstronaut}
+          onDelete={deleteAstronaut}
           showRegisterForm={showRegisterForm}
       />
       <Footer />

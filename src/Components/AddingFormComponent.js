@@ -39,7 +39,7 @@ function AddingForm({ onAdd, onExpandRegisterForm }) {
     setSuperpower(e.target.value);
   }
 
-  function addAstronaut(e) {
+  function handleSubmit(e) {
       e.preventDefault();
       onAdd(firstName, lastName, birth, superpower);
       onExpandRegisterForm();
@@ -50,7 +50,7 @@ function AddingForm({ onAdd, onExpandRegisterForm }) {
     }
 
     return (
-        <form onSubmit={addAstronaut} className={classes.form}>
+        <form onSubmit={handleSubmit} className={classes.form}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
