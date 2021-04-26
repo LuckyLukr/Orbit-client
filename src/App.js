@@ -8,34 +8,37 @@ import Footer from './Components/FooterComponent';
 function App() {
   const [ astronauts, setAstronauts ] = useState([]);
   const [ showRegisterForm, setShowRegisterForm ] = useState(false);
+
+  const API = 'https://orbit-server.herokuapp.com/';
   
   useEffect(()=> {
-    loadAstronauts();
-  },[]);
 
-  function fetchAstronauts() {
+    function fetchAstronauts() {
       return new Promise( resolve => {
-          axios.get('https://orbit-server.herokuapp.com/')
+          axios.get(API)
             .then( res => {
               resolve(res.data);
             })
             .catch(err => console.log(err));
       })
-  }
+    }
 
-  async function loadAstronauts() {
-      const nauts = await fetchAstronauts();
-      setAstronauts(nauts);
-  }
+    async function loadAstronauts() {
+        const nauts = await fetchAstronauts();
+        setAstronauts(nauts);
+    }
+
+    loadAstronauts();
+  },[]);
 
   function addAstronaut(firstName, lastName, birth, superpower) {
       const newNaut = {id: uuidv4(), firstName, lastName, birth, superpower };
-      axios.post('https://orbit-server.herokuapp.com/', newNaut).catch(err => console.log(err));
+      axios.post(API, newNaut).catch(err => console.log(err));
       setAstronauts([...astronauts, newNaut]);
   }
 
   function deleteAstronaut( id ) {
-      axios.delete('https://orbit-server.herokuapp.com/' + id).catch(err => console.log(err));
+      axios.delete(API + id).catch(err => console.log(err));
       const nauts = [...astronauts];
       const index = nauts.findIndex(e => e.id === id);
       nauts.splice(index, 1);

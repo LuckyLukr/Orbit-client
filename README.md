@@ -1,4 +1,4 @@
-# Getting Started with react-assigment app
+# Getting Started with ORBIT app
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
